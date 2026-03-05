@@ -4,6 +4,28 @@ import { openapi } from "@elysiajs/openapi";
 
 const app = new Elysia()
 .use(openapi()) 
+
+app.onError(({ code, error, set }) => {
+if (code === "VALIDATION") {
+  set.status = 400
+  return {
+    success: false,
+    error: "Validation Error",
+  }
+}
+})
+
+app.post(
+"/login",
+({ body }) => body,
+{
+  body: t.Object({
+    email: t.String({ format: "email" }),
+    password: t.String({ minLength: 8 })
+  })
+}
+)
+
 app.get(
 "/admin",
 () => {
