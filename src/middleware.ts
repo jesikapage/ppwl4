@@ -26,6 +26,20 @@ app.get(
   }
 }
 )
+
+app.onAfterHandle(({ response }) => {
+  return {
+    success: true,
+    message: "data tersedia",
+    data: response
+  };
+});
+
+app.get("/product", () => ({
+  id: 1,
+  name: "Sisik Naga"
+})) 
+
  .listen(3000);
 
 
