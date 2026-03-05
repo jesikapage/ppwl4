@@ -36,6 +36,22 @@ const app = new Elysia()
     })
   }
 )
+
+  app.get(
+  "/stats",
+  () => {
+    return {
+      total: 200,
+      active: 150
+    };
+  },
+  {
+    response: t.Object({
+      total: t.Number(),
+      active: t.Number()
+    })
+  }
+)
   .listen(3000);
 
 
